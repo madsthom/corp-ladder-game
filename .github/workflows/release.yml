@@ -24,15 +24,15 @@ jobs:
       - name: Build releases
         run: |
           # Create releases for all platforms
-          love-release -M  # Mac
-          love-release -W  # Windows
-          love-release     # Linux
+          love-release -M --uti com.corp-ladder-game || true  # Mac
+          love-release -W -a "Cline" -p "corp-ladder-game" || true  # Windows
+          love-release -a "Cline" -p "corp-ladder-game" || true     # Linux
           
           # Rename files to match tag version
           VERSION=${GITHUB_REF#refs/tags/}
           cd releases
           for f in *; do
-            mv "$f" "${f/0.1.0/$VERSION}"
+            mv "$f" "${f/0.1.0/$VERSION}" || true
           done
 
       - name: Create Release
