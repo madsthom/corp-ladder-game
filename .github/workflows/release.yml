@@ -18,7 +18,7 @@ jobs:
 
       - name: Install love-release
         run: |
-          sudo apt-get install -y luarocks
+          sudo apt-get install -y luarocks libzip-dev
           sudo luarocks install love-release
 
       - name: Build releases
