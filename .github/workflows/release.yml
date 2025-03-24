@@ -24,7 +24,9 @@ jobs:
       - name: Build releases
         run: |
           # Create releases for all platforms
-          love-release -M -W -L
+          love-release -M  # Mac
+          love-release -W  # Windows
+          love-release     # Linux
           
           # Rename files to match tag version
           VERSION=${GITHUB_REF#refs/tags/}
