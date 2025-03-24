@@ -15,7 +15,9 @@ Thumbs.db
 *.love
 
 # Build or release directories
-releases/
+releases/*.love
+releases/*.zip
+releases/*.tar.gz
 build/
 
 # IDE or editor-specific files

@@ -1,0 +1,44 @@
+name: Release Game
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install LÖVE
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y love
+
+      - name: Install love-release
+        run: |
+          sudo apt-get install -y luarocks
+          sudo luarocks install love-release
+
+      - name: Build releases
+        run: |
+          # Create releases for all platforms
+          love-release -M -W -L
+          
+          # Rename files to match tag version
+          VERSION=${GITHUB_REF#refs/tags/}
+          cd releases
+          for f in *; do
+            mv "$f" "${f/0.1.0/$VERSION}"
+          done
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            releases/*.love
+            releases/*.zip
+            releases/*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
