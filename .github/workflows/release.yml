@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,12 +38,12 @@ jobs:
             mv "$f" "${f/0.1.0/$VERSION}" || true
           done
 
+      - name: List Release Files
+        run: ls -la releases/
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            releases/*.love
-            releases/*.zip
-            releases/*.tar.gz
+          files: releases/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
