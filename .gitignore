@@ -1,0 +1,25 @@
+# Compiled Lua bytecode
+*.luac
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# LÖve releases
+*.love
+
+# Build or release directories
+releases/
+build/
+
+# IDE or editor-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
